@@ -33,7 +33,7 @@ class App():
         self.accent_color9 = '#ffffff'
         self.accent_header_font1 = ('Pacifico', 22)
         self.accent_header_font2 = ('Pacifico', 10)
-        self.accent_header_font3 = ('', 16)
+        self.accent_header_font3 = ('Pacifico', 16)
         
         self.ch_list = ['a','Z','b','Y','c','X','d','W','e','V','f','U','g','T','h','S','i','R','j','Q','k','P','l','O','m','N','n','M','o','L','p','K','q','J','r','I','s','H','t','G','u','F','v','E','w','D','x','C','y','B','z','A',',','.','?','!',':',';','-','―','_','"','(',')',' ']
         self.encoded_str = ''
@@ -66,8 +66,8 @@ class App():
         )
         self.theme_switch.place(x = 25, y = 350)
         
-        self.header_lbl = customtkinter.CTkLabel(self.menu_frame, text = 'Shifted Encoder', text_font = self.accent_header_font1)
-        self.header_lbl.pack(pady = 30)
+        self.header_lbl = customtkinter.CTkLabel(self.menu_frame, text = 'Shifted\nEncoder / Decoder', text_font = self.accent_header_font1)
+        self.header_lbl.pack(pady = 5)
         self.menu_encode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Encode', command = self.show_encoder_widget)
         self.menu_decode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Decode', command = self.show_decoder_widget)
         self.menu_quit_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Quit', command = self.quit)
@@ -87,7 +87,7 @@ class App():
         self.menu_quit_btn.configure(
             bg_color = (self.accent_color2, self.accent_color0),
             fg_color = self.accent_color6,
-            hover_color = (self.accent_color5, self.accent_color7),
+            hover_color = (self.accent_color5, self.accent_color5),
             text_color = self.accent_color2,
             corner_radius = 6,
             height = 35
@@ -175,9 +175,9 @@ class App():
         self.close_widget_btn = customtkinter.CTkButton(self.root, cursor = 'hand2', text = 'x', command = self.close_widget)
         self.close_widget_btn.configure(
             bg_color = (self.accent_color2, self.accent_color0),
-            fg_color = (self.accent_color6, self.accent_color1),
+            fg_color = (self.accent_color6, self.accent_color6),
             text_color = self.accent_color2,
-            hover_color = (self.accent_color5, self.accent_color7),
+            hover_color = (self.accent_color5, self.accent_color5),
             corner_radius = 6,
             width = 25,
             height = 25
@@ -197,7 +197,7 @@ class App():
         self.encoder_widget_frame.pack(pady = 10)
         
         self.encoder_header_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Encoder', text_font = self.accent_header_font3, anchor = 's', text_color = (self.accent_color6, self.accent_color6))
-        self.encoder_header_lbl.grid(row = 0, columnspan = 3, pady = 10)
+        self.encoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
         self.encoder_input_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Input', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.encoder_input_lbl.grid(row = 1, column = 0, pady = 5, padx = 5, sticky = 'w')
         self.encoder_output_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Output', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
@@ -247,7 +247,7 @@ class App():
         self.encoder_reset_btn.configure(
                 bg_color = (self.accent_color2, self.accent_color0),
                 fg_color = self.accent_color6,
-                hover_color = (self.accent_color5, self.accent_color7),
+                hover_color = (self.accent_color5, self.accent_color5),
                 text_color = self.accent_color2,
                 corner_radius = 6,
                 width = 110,
@@ -268,7 +268,7 @@ class App():
         self.decoder_widget_frame.pack(pady = 10)
         
         self.decoder_header_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Decoder', text_font = self.accent_header_font3, anchor = 's', text_color = (self.accent_color6, self.accent_color6))
-        self.decoder_header_lbl.grid(row = 0, columnspan = 3, pady = 10)
+        self.decoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
         self.decoder_input_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Input', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.decoder_input_lbl.grid(row = 1, column = 0, pady = 5, padx = 5, sticky = 'w')
         self.decoder_output_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Output', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
@@ -318,7 +318,7 @@ class App():
         self.decoder_reset_btn.configure(
                 bg_color = (self.accent_color2, self.accent_color0),
                 fg_color = self.accent_color6,
-                hover_color = (self.accent_color5, self.accent_color7),
+                hover_color = (self.accent_color5, self.accent_color5),
                 text_color = self.accent_color2,
                 corner_radius = 6,
                 width = 110,
