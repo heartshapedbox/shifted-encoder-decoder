@@ -53,7 +53,7 @@ class App():
         self.theme_icon_light = customtkinter.CTkLabel(self.root, text = '🔆', text_font = self.accent_header_font2, text_color = self.accent_color4)
         
         self.switch_var = customtkinter.StringVar(value = "off")
-        self.theme_switch = customtkinter.CTkSwitch(self.root, text = '', command = self.switch_theme, variable = self.switch_var, onvalue = "on", offvalue = "off")
+        self.theme_switch = customtkinter.CTkSwitch(self.root, text = '', command = lambda:self.switch_theme(), variable = self.switch_var, onvalue = "on", offvalue = "off")
         self.theme_switch.place(x = 25, y = 350)
         self.theme_switch.configure(
             progress_color = self.accent_color4,
@@ -64,8 +64,8 @@ class App():
         
         self.header_lbl = customtkinter.CTkLabel(self.menu_frame, text = 'Shifted\nEncoder Decoder', text_font = self.accent_header_font1)
         self.header_lbl.pack(pady = 10)
-        self.menu_encode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Encode', command = self.show_encoder_widget)
-        self.menu_decode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Decode', command = self.show_decoder_widget)
+        self.menu_encode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Encode', command = lambda:self.show_encoder_widget())
+        self.menu_decode_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Decode', command = lambda:self.show_decoder_widget())
         for i in (self.menu_encode_btn, self.menu_decode_btn):
             i.configure(
                 bg_color = (self.accent_color2, self.accent_color1),
@@ -78,7 +78,7 @@ class App():
             i.pack(pady = 2)
             self.hover(i, self.accent_color3, self.accent_color2)
         
-        self.menu_quit_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Quit', command = self.quit)
+        self.menu_quit_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Quit', command = lambda:quit())
         self.menu_quit_btn.pack(pady = 2)
         self.menu_quit_btn.configure(
             bg_color = (self.accent_color2, self.accent_color1),
@@ -164,7 +164,7 @@ class App():
             
     
     def show_close_widget_button(self):
-        self.close_widget_btn = customtkinter.CTkButton(self.root, cursor = 'hand2', text = 'x', command = self.close_widget)
+        self.close_widget_btn = customtkinter.CTkButton(self.root, cursor = 'hand2', text = 'x', command = lambda:self.close_widget())
         self.close_widget_btn.place(x = 20, y = 20)
         self.close_widget_btn.configure(
             bg_color = (self.accent_color2, self.accent_color1),
@@ -212,9 +212,9 @@ class App():
         self.encoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
         self.encoder_reset_message_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = '', text_color = (self.accent_color6, self.accent_color6), width = 20)
         self.encoder_reset_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 37, sticky = 'e')
-        self.encoder_encode_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Encode', command = self.encode)
+        self.encoder_encode_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Encode', command = lambda:self.encode())
         self.encoder_encode_btn.grid(row = 6, column = 0, pady = 5, sticky = 'w')
-        self.encoder_copy_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Copy', command = self.copy)
+        self.encoder_copy_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Copy', command = lambda:self.copy())
         self.encoder_copy_btn.grid(row = 6, column = 1, pady = 5, sticky = 'e')
         for i in (self.encoder_encode_btn, self.encoder_copy_btn):
             i.configure(
@@ -227,7 +227,7 @@ class App():
                 height = 35
                 )
             self.hover(i, self.accent_color3, self.accent_color2)
-        self.encoder_reset_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Reset', command = self.reset)
+        self.encoder_reset_btn = customtkinter.CTkButton(self.encoder_widget_frame, cursor = 'hand2', text = 'Reset', command = lambda:self.reset())
         self.encoder_reset_btn.grid(row = 6, column = 2, pady = 5, sticky = 'e')
         self.encoder_reset_btn.configure(
                 bg_color = (self.accent_color2, self.accent_color1),
@@ -276,9 +276,9 @@ class App():
         self.decoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
         self.decoder_reset_message_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = '', text_color = (self.accent_color6, self.accent_color6), width = 20)
         self.decoder_reset_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 37, sticky = 'e')
-        self.decoder_decode_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Decode', command = self.decode)
+        self.decoder_decode_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Decode', command = lambda:self.decode())
         self.decoder_decode_btn.grid(row = 6, column = 0, pady = 5, sticky = 'w')
-        self.decoder_copy_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Copy', command = self.copy)
+        self.decoder_copy_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Copy', command = lambda:self.copy())
         self.decoder_copy_btn.grid(row = 6, column = 1, pady = 5, sticky = 'e')
         for i in (self.decoder_decode_btn, self.decoder_copy_btn):
             i.configure(
@@ -291,7 +291,7 @@ class App():
                 height = 35
                 )
             self.hover(i, self.accent_color3, self.accent_color2)
-        self.decoder_reset_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Reset', command = self.reset)
+        self.decoder_reset_btn = customtkinter.CTkButton(self.decoder_widget_frame, cursor = 'hand2', text = 'Reset', command = lambda:self.reset())
         self.decoder_reset_btn.grid(row = 6, column = 2, pady = 5, sticky = 'e')
         self.decoder_reset_btn.configure(
                 bg_color = (self.accent_color2, self.accent_color1),
@@ -348,10 +348,6 @@ class App():
                         self.decoded_str = f'{self.decoded_str}{self.ch_list[self.ch_index - self.shift]}'
                 self.decoder_message.configure(text = self.decoded_str)
                 self.finish = True
-    
-    
-    def quit(self):
-        return quit()
 
 
 if __name__ == '__main__':
