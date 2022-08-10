@@ -5,7 +5,8 @@
 
 
 # shifted-encoder
-## Simple shifted encoder / decoder
+## Simple shifted encoder / decoder.
+.exe file in the shifted-encoder-decoder.rar
 
 Stack:
 Python, Tkinter, Custom Tkinter
