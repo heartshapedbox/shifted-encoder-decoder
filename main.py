@@ -35,7 +35,6 @@ class App():
         
         self.ch_list = ['a','Z','b','Y','c','X','d','W','e','V','f','U','g','T','h','S','i','R','j','Q','k','P','l','O','m','N','n','M','o','L','p','K','q','J','r','I','s','H','t','G','u','F','v','E','w','D','x','C','y','B','z','A',',','.','?','!',':',';','-','―','_','"','(',')',' ']
         self.encoded_str, self.decoded_str = '', ''
-        
         self.show_menu()
         self.root.mainloop()
     
@@ -207,7 +206,7 @@ class App():
         
         self.encoder_shift_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Shift', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.encoder_shift_lbl.grid(row = 5, column = 0, pady = 15, padx = 5, sticky = 'w')
-        self.encoder_shift_entry = customtkinter.CTkEntry(self.encoder_widget_frame, border_width = 0, width = 40)
+        self.encoder_shift_entry = customtkinter.CTkEntry(self.encoder_widget_frame, border_width = 0, width = 40, placeholder_text="0")
         self.encoder_shift_entry.grid(row = 5, column = 0, pady = 15, padx = 55, sticky = 'e')
         self.encoder_copy_message_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = '', text_color = (self.accent_color3, self.accent_color3), width = 20)
         self.encoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
@@ -271,7 +270,7 @@ class App():
 
         self.decoder_shift_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Shift', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.decoder_shift_lbl.grid(row = 5, column = 0, pady = 15, padx = 5, sticky = 'w')
-        self.decoder_shift_entry = customtkinter.CTkEntry(self.decoder_widget_frame, border_width = 0, width = 40)
+        self.decoder_shift_entry = customtkinter.CTkEntry(self.decoder_widget_frame, border_width = 0, width = 40, placeholder_text="0")
         self.decoder_shift_entry.grid(row = 5, column = 0, pady = 15, padx = 55, sticky = 'e')
         self.decoder_copy_message_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = '', text_color = (self.accent_color3, self.accent_color3), width = 20)
         self.decoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
