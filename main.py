@@ -30,7 +30,7 @@ class App():
         self.accent_color7 = '#000000'
         self.accent_color8 = '#343638'
         self.accent_color9 = '#ffffff'
-        self.accent_header_font1 = ('Pacifico', 22)
+        self.accent_header_font1 = ('Pacifico', 20)
         self.accent_header_font2 = ('Pacifico', 10)
         
         self.ch_list = ['a','Z','b','Y','c','X','d','W','e','V','f','U','g','T','h','S','i','R','j','Q','k','P','l','O','m','N','n','M','o','L','p','K','q','J','r','I','s','H','t','G','u','F','v','E','w','D','x','C','y','B','z','A',',','.','?','!',':',';','-','―','_','"','(',')',' ']
@@ -49,12 +49,12 @@ class App():
         self.menu_frame.pack(pady = 50)
         
         self.theme_icon_dark = customtkinter.CTkLabel(self.root, text = '🌙', text_font = self.accent_header_font2, text_color = self.accent_color4)
-        self.theme_icon_dark.place(x = 32, y = 320, width = 20, height = 20)
+        self.theme_icon_dark.place(x = 32, y = 345, width = 20, height = 20)
         self.theme_icon_light = customtkinter.CTkLabel(self.root, text = '🔆', text_font = self.accent_header_font2, text_color = self.accent_color4)
         
         self.switch_var = customtkinter.StringVar(value = "off")
         self.theme_switch = customtkinter.CTkSwitch(self.root, text = '', command = lambda:self.switch_theme(), variable = self.switch_var, onvalue = "on", offvalue = "off")
-        self.theme_switch.place(x = 25, y = 350)
+        self.theme_switch.place(x = 25, y = 380)
         self.theme_switch.configure(
             progress_color = self.accent_color4,
             fg_color = self.accent_color4,
@@ -94,12 +94,12 @@ class App():
     def switch_theme(self):
         if self.switch_var.get() == 'off':
             self.theme_icon_light.place(x = 1000, y = 1000)
-            self.theme_icon_dark.place(x = 32, y = 320, width = 20, height = 20)
+            self.theme_icon_dark.place(x = 32, y = 345, width = 20, height = 20)
             customtkinter.set_appearance_mode('dark')
             self.menu_frame.configure(bg_color = self.accent_color1, fg_color = self.accent_color1)
         else:
             self.theme_icon_dark.place(x = 1000, y = 1000)
-            self.theme_icon_light.place(x = 33, y = 320, width = 20, height = 20)
+            self.theme_icon_light.place(x = 34, y = 345, width = 20, height = 20)
             customtkinter.set_appearance_mode('light')
             self.menu_frame.configure(bg_color = self.accent_color2, fg_color = self.accent_color2)
             self.switch_var.set(value = "on")
@@ -168,14 +168,14 @@ class App():
         self.close_widget_btn.place(x = 20, y = 20)
         self.close_widget_btn.configure(
             bg_color = (self.accent_color2, self.accent_color1),
-            fg_color = (self.accent_color6, self.accent_color6),
-            text_color = self.accent_color2,
-            hover_color = (self.accent_color5, self.accent_color5),
+            fg_color = (self.accent_color2, self.accent_color1),
+            text_color = (self.accent_color7, self.accent_color2),
+            hover_color = (self.accent_color9, self.accent_color8),
             corner_radius = 6,
             width = 25,
             height = 25
         )
-        self.hover(self.close_widget_btn, (self.accent_color6, self.accent_color6), self.accent_color2)
+        self.hover(self.close_widget_btn, (self.accent_color6, self.accent_color6), (self.accent_color7, self.accent_color2))
     
 
     def show_encoder_widget(self):
@@ -185,7 +185,7 @@ class App():
         self.widget_name = 'encoder_widget'
         self.encoder_widget_frame = customtkinter.CTkFrame(self.root, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
         self.encoder_widget_frame.pack(pady = 10)
-        self.encoder_header_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Encoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color6, self.accent_color6))
+        self.encoder_header_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Encoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color7, self.accent_color2))
         self.encoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
         self.encoder_input_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Input', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.encoder_input_lbl.grid(row = 1, column = 0, pady = 5, padx = 5, sticky = 'w')
@@ -249,7 +249,7 @@ class App():
         self.widget_name = 'decoder_widget'
         self.decoder_widget_frame = customtkinter.CTkFrame(self.root, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
         self.decoder_widget_frame.pack(pady = 10)
-        self.decoder_header_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Decoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color6, self.accent_color6))
+        self.decoder_header_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Decoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color7, self.accent_color2))
         self.decoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
         self.decoder_input_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Input', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
         self.decoder_input_lbl.grid(row = 1, column = 0, pady = 5, padx = 5, sticky = 'w')
