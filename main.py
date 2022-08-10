@@ -78,7 +78,7 @@ class App():
             i.pack(pady = 2)
             self.hover(i, self.accent_color3, self.accent_color2)
         
-        self.menu_quit_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Quit', command = lambda:quit())
+        self.menu_quit_btn = customtkinter.CTkButton(self.menu_frame, cursor = 'hand2', text = 'Quit', command = lambda:self.quit())
         self.menu_quit_btn.pack(pady = 2)
         self.menu_quit_btn.configure(
             bg_color = (self.accent_color2, self.accent_color1),
@@ -348,7 +348,10 @@ class App():
                         self.decoded_str = f'{self.decoded_str}{self.ch_list[self.ch_index - self.shift]}'
                 self.decoder_message.configure(text = self.decoded_str)
                 self.finish = True
-
+                
+                
+    def quit(self):
+        self.root.destroy()
 
 if __name__ == '__main__':
     App()
