@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 from tkinter import *
 from threading import Timer
 from tktooltip import ToolTip
