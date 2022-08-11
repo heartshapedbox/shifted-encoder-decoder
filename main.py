@@ -1,5 +1,7 @@
+from multiprocessing.sharedctypes import Value
 from tkinter import *
 from threading import Timer
+from tktooltip import ToolTip
 import customtkinter
 import pyglet
 import pyperclip
@@ -10,16 +12,16 @@ customtkinter.set_appearance_mode('dark')
 customtkinter.set_default_color_theme('blue')
 
 
-class App():
+class App(customtkinter.CTk):
     def __init__(self):
-        self.root = customtkinter.CTk()
-        self.root.title('Shifted Encoder Decoder')
-        self.root.iconbitmap('assets\\encoder.ico')
-        x = int(self.root.winfo_screenwidth() // 2.5)
-        y = int(self.root.winfo_screenheight() * 0.2)
+        super().__init__()
+        x = int(self.winfo_screenwidth() // 2.5)
+        y = int(self.winfo_screenheight() * 0.2)
         x, y = str(x), str(y)
-        self.root.geometry(f'525x425+{x}+{y}')
-        self.root.resizable(0, 0)
+        self.geometry(f'525x425+{x}+{y}')
+        self.title('Shifted Encoder Decoder')
+        self.iconbitmap('assets\\encoder.ico')
+        self.resizable(0, 0)
         
         self.accent_color1 = '#212325'
         self.accent_color2 = '#ededed'
@@ -33,10 +35,9 @@ class App():
         self.accent_header_font1 = ('Pacifico', 20)
         self.accent_header_font2 = ('Pacifico', 10)
         
-        self.ch_list = ['a','Z','b','Y','c','X','d','W','e','V','f','U','g','T','h','S','i','R','j','Q','k','P','l','O','m','N','n','M','o','L','p','K','q','J','r','I','s','H','t','G','u','F','v','E','w','D','x','C','y','B','z','A',',','.','?','!',':',';','-','―','_','"','(',')',' ']
+        self.ch_list = ['a','Z','b','Y','c','X','d','W','e','V','f','U','g','T','h','S','i','R','j','Q','k','P','l','O','m','N','n','M','o','L','p','K','q','J','r','I','s','H','t','G','u','F','v','E','w','D','x','C','y','B','z','A',',','.','?','!',':',';','-','―','_','"',"'",'(',')',' ']
         self.encoded_str, self.decoded_str = '', ''
         self.show_menu()
-        self.root.mainloop()
     
     
     def hover(self, btn, colorfgOnHover, colorfgOnLeave):
@@ -45,15 +46,15 @@ class App():
     
     
     def show_menu(self):
-        self.menu_frame = customtkinter.CTkFrame(self.root, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
+        self.menu_frame = customtkinter.CTkFrame(self, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
         self.menu_frame.pack(pady = 50)
         
-        self.theme_icon_dark = customtkinter.CTkLabel(self.root, text = '🌙', text_font = self.accent_header_font2, text_color = self.accent_color4)
+        self.theme_icon_dark = customtkinter.CTkLabel(self, text = '🌙', text_font = self.accent_header_font2, text_color = self.accent_color4)
         self.theme_icon_dark.place(x = 32, y = 345, width = 20, height = 20)
-        self.theme_icon_light = customtkinter.CTkLabel(self.root, text = '🔆', text_font = self.accent_header_font2, text_color = self.accent_color4)
+        self.theme_icon_light = customtkinter.CTkLabel(self, text = '🔆', text_font = self.accent_header_font2, text_color = self.accent_color4)
         
         self.switch_var = customtkinter.StringVar(value = "off")
-        self.theme_switch = customtkinter.CTkSwitch(self.root, text = '', command = lambda:self.switch_theme(), variable = self.switch_var, onvalue = "on", offvalue = "off")
+        self.theme_switch = customtkinter.CTkSwitch(self, text = '', command = lambda:self.switch_theme(), variable = self.switch_var, onvalue = "on", offvalue = "off")
         self.theme_switch.place(x = 25, y = 380)
         self.theme_switch.configure(
             progress_color = self.accent_color4,
@@ -164,7 +165,7 @@ class App():
             
     
     def show_close_widget_button(self):
-        self.close_widget_btn = customtkinter.CTkButton(self.root, cursor = 'hand2', text = 'x', command = lambda:self.close_widget())
+        self.close_widget_btn = customtkinter.CTkButton(self, cursor = 'hand2', text = 'x', command = lambda:self.close_widget())
         self.close_widget_btn.place(x = 20, y = 20)
         self.close_widget_btn.configure(
             bg_color = (self.accent_color2, self.accent_color1),
@@ -183,7 +184,7 @@ class App():
             i.destroy()
         
         self.widget_name = 'encoder_widget'
-        self.encoder_widget_frame = customtkinter.CTkFrame(self.root, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
+        self.encoder_widget_frame = customtkinter.CTkFrame(self, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
         self.encoder_widget_frame.pack(pady = 10)
         self.encoder_header_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Encoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color7, self.accent_color2))
         self.encoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
@@ -195,19 +196,19 @@ class App():
         self.encoder_entry.grid(row = 2, columnspan = 3, pady = 5, padx = 5)
         self.encoder_entry.after(500, lambda: self.encoder_entry.focus())
         self.encoder_entry.configure(width = 400, height = 40)
-        self.encoder_message = customtkinter.CTkLabel(self.encoder_widget_frame, corner_radius = 6, text = '', text_color = (self.accent_color7, self.accent_color2), anchor = 'w', wraplength = 390)
+        self.encoder_message = customtkinter.CTkLabel(self.encoder_widget_frame, corner_radius = 6, anchor = 'w', text = '', text_color = (self.accent_color7, self.accent_color2), wraplength = 390)
         self.encoder_message.grid(row = 4, columnspan = 3, pady = 5, padx = 5)
         self.encoder_message.configure(
             bg_color = (self.accent_color2, self.accent_color1),
             fg_color = (self.accent_color9, self.accent_color8),
             width = 400,
-            height = 80
+            height = 85
         )
         
         self.encoder_shift_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = 'Shift', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
-        self.encoder_shift_lbl.grid(row = 5, column = 0, pady = 15, padx = 5, sticky = 'w')
+        self.encoder_shift_lbl.grid(row = 5, column = 0, pady = 20, padx = 5, sticky = 'w')
         self.encoder_shift_entry = customtkinter.CTkEntry(self.encoder_widget_frame, border_width = 0, width = 40, placeholder_text="0")
-        self.encoder_shift_entry.grid(row = 5, column = 0, pady = 15, padx = 55, sticky = 'e')
+        self.encoder_shift_entry.grid(row = 5, column = 0, pady = 20, padx = 55, sticky = 'e')
         self.encoder_copy_message_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = '', text_color = (self.accent_color3, self.accent_color3), width = 20)
         self.encoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
         self.encoder_reset_message_lbl = customtkinter.CTkLabel(self.encoder_widget_frame, text = '', text_color = (self.accent_color6, self.accent_color6), width = 20)
@@ -241,13 +242,20 @@ class App():
         self.hover(self.encoder_reset_btn, self.accent_color6, self.accent_color2)
         self.show_close_widget_button()
         
+        if self.switch_var.get() == 'off':
+            self.encoder_entry_tooltip = ToolTip(self.encoder_entry, msg = 'Enter your message here. Allows up to 215 characters.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color8, pady = 5, delay = 0.5)
+            self.encoder_shift_entry_tooltip = ToolTip(self.encoder_shift_entry, msg = 'Enter your key shift here. Allows integer from 1 to 65 only.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color8, pady = 5, delay = 0.5)
+        else:
+            self.encoder_entry_tooltip = ToolTip(self.encoder_entry, msg = 'Enter your message here. Allows up to 215 characters.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color2, pady = 5, delay = 0.5)
+            self.encoder_shift_entry_tooltip = ToolTip(self.encoder_shift_entry, msg = 'Enter your key shift here. Allows integer from 1 to 65 only.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color2, pady = 5, delay = 0.5)
+        
         
     def show_decoder_widget(self):
         for i in (self.menu_frame, self.theme_switch, self.theme_icon_dark, self.theme_icon_light):
             i.destroy()
             
         self.widget_name = 'decoder_widget'
-        self.decoder_widget_frame = customtkinter.CTkFrame(self.root, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
+        self.decoder_widget_frame = customtkinter.CTkFrame(self, bg_color = (self.accent_color2, self.accent_color1), fg_color = (self.accent_color2, self.accent_color1))
         self.decoder_widget_frame.pack(pady = 10)
         self.decoder_header_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Decoder', text_font = self.accent_header_font1, anchor = 's', text_color = (self.accent_color7, self.accent_color2))
         self.decoder_header_lbl.grid(row = 0, columnspan = 3, pady = 0)
@@ -259,19 +267,19 @@ class App():
         self.decoder_entry.grid(row = 2, columnspan = 3, pady = 5, padx = 5)
         self.decoder_entry.configure(width = 400, height = 40)
         self.decoder_entry.after(500, lambda: self.decoder_entry.focus())
-        self.decoder_message = customtkinter.CTkLabel(self.decoder_widget_frame, corner_radius = 6, text = '', text_color = (self.accent_color7, self.accent_color2), anchor = 'w', wraplength = 390)
+        self.decoder_message = customtkinter.CTkLabel(self.decoder_widget_frame, corner_radius = 6, anchor = 'w', text = '', text_color = (self.accent_color7, self.accent_color2), wraplength = 390)
         self.decoder_message.grid(row = 4, columnspan = 3, pady = 5, padx = 5)
         self.decoder_message.configure(
             bg_color = (self.accent_color2, self.accent_color1),
             fg_color = (self.accent_color9, self.accent_color8),
             width = 400,
-            height = 80
+            height = 85
         )
 
         self.decoder_shift_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = 'Shift', anchor = 'w', text_color = (self.accent_color7, self.accent_color2))
-        self.decoder_shift_lbl.grid(row = 5, column = 0, pady = 15, padx = 5, sticky = 'w')
+        self.decoder_shift_lbl.grid(row = 5, column = 0, pady = 20, padx = 5, sticky = 'w')
         self.decoder_shift_entry = customtkinter.CTkEntry(self.decoder_widget_frame, border_width = 0, width = 40, placeholder_text="0")
-        self.decoder_shift_entry.grid(row = 5, column = 0, pady = 15, padx = 55, sticky = 'e')
+        self.decoder_shift_entry.grid(row = 5, column = 0, pady = 20, padx = 55, sticky = 'e')
         self.decoder_copy_message_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = '', text_color = (self.accent_color3, self.accent_color3), width = 20)
         self.decoder_copy_message_lbl.grid(row = 5, columnspan = 3, pady = 15, padx = 157, sticky = 'e')
         self.decoder_reset_message_lbl = customtkinter.CTkLabel(self.decoder_widget_frame, text = '', text_color = (self.accent_color6, self.accent_color6), width = 20)
@@ -304,6 +312,13 @@ class App():
                 )
         self.hover(self.decoder_reset_btn, self.accent_color6, self.accent_color2)
         self.show_close_widget_button()
+        
+        if self.switch_var.get() == 'off':
+            self.decoder_entry_tooltip = ToolTip(self.decoder_entry, msg = 'Enter your message here. Allows up to 215 characters.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color8, pady = 5, delay = 0.5)
+            self.decoder_shift_entry_tooltip = ToolTip(self.decoder_shift_entry, msg = 'Enter your key shift here. Allows integer from 1 to 65 only.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color8, pady = 5, delay = 0.5)
+        else:
+            self.decoder_entry_tooltip = ToolTip(self.decoder_entry, msg = 'Enter your message here. Allows up to 215 characters.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color2, pady = 5, delay = 0.5)
+            self.decoder_shift_entry_tooltip = ToolTip(self.decoder_shift_entry, msg = 'Enter your key shift here. Allows integer from 1 to 65 only.', parent_kwargs={"bg": self.accent_color3, "padx": 1, "pady": 1}, fg = self.accent_color3, bg = self.accent_color2, pady = 5, delay = 0.5)
     
     
     def encode(self):
@@ -311,9 +326,10 @@ class App():
         self.input_str = self.encoder_entry.get()
         self.shift = int(self.encoder_shift_entry.get())
         self.ch_list_len = len(self.ch_list)
+            
         for i in self.input_str:
             self.finish = False
-            while self.finish == False:
+            while self.finish == False and len(self.input_str) < 216 and self.shift < 66:
                 self.ch_index = self.ch_list.index(i)
                 if self.ch_index + self.shift >= self.ch_list_len:
                     self.len_diff = self.ch_list_len - self.ch_index
@@ -326,6 +342,20 @@ class App():
                         self.encoded_str = f'{self.encoded_str}{self.ch_list[self.ch_index + self.shift]}'
                 self.encoder_message.configure(text = self.encoded_str)
                 self.finish = True
+        
+        try:
+            if self.shift < 1:
+                self.encoder_message.configure(text = '')
+                self.encoder_reset_message_lbl.configure(text = 'Key shift must be greater that 0!\nAllows integer from 1 to 65 only.')
+                Timer(1.5, self.remove_message).start()
+            elif self.shift > 65:
+                self.encoder_reset_message_lbl.configure(text = 'Key shift is out of range!\nAllows integer from 1 to 65 only.')
+                Timer(1.5, self.remove_message).start()
+            elif len(self.input_str) > 215:
+                self.encoder_reset_message_lbl.configure(text = 'Message length is out of range!\nAllows up to 215 characters.')
+                Timer(1.5, self.remove_message).start()
+        except ValueError:
+            self.encoder_reset_message_lbl.configure(text = 'Key shift must be greater that 0!\nAllows integer from 1 to 65 only.')
     
     
     def decode(self):
@@ -335,7 +365,7 @@ class App():
         self.ch_list_len = len(self.ch_list)
         for i in self.input_str:
             self.finish = False
-            while self.finish == False:
+            while self.finish == False and len(self.input_str) < 216 and self.shift < 66:
                 self.ch_index = self.ch_list.index(i)
                 if self.ch_index - self.shift <= 0:
                     self.len_diff =  self.shift - self.ch_index
@@ -349,9 +379,23 @@ class App():
                 self.decoder_message.configure(text = self.decoded_str)
                 self.finish = True
                 
+        try:
+            if self.shift < 1:
+                self.decoder_message.configure(text = '')
+                self.decoder_reset_message_lbl.configure(text = 'Key shift must be greater that 0!\nAllows integer from 1 to 65 only.')
+                Timer(1.5, self.remove_message).start()
+            elif self.shift > 65:
+                self.decoder_reset_message_lbl.configure(text = 'Key shift is out of range!\nAllows integer from 1 to 65 only.')
+                Timer(1.5, self.remove_message).start()
+            elif len(self.input_str) > 215:
+                self.decoder_reset_message_lbl.configure(text = 'Message length is out of range!\nAllows up to 215 characters.')
+                Timer(1.5, self.remove_message).start()
+        except ValueError:
+            self.decoder_reset_message_lbl.configure(text = 'Key shift must be greater that 0!\nAllows integer from 1 to 65 only.') 
+     
                 
     def quit(self):
-        self.root.destroy()
+        self.destroy()
 
 if __name__ == '__main__':
-    App()
+    App().mainloop()
