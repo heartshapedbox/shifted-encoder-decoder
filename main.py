@@ -5,7 +5,7 @@ import customtkinter
 import pyglet
 import pyperclip
 import os
-os.chdir('C:\\Users\\Dima\\Documents\\GitHub\\shifted-encoder-decoder')
+os.chdir('C:\\Users\\Dmitry\\Documents\\GitHub\\shifted-encoder-decoder')
 pyglet.font.add_file('fonts\\Pacifico.ttf')
 customtkinter.set_appearance_mode('dark')
 customtkinter.set_default_color_theme('blue')
